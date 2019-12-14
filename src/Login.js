@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import DetailsPage from "./DetailsPage";
+import { Redirect } from "react-router-dom";
 
 class Login extends Component {
   constructor(props) {
@@ -17,6 +19,13 @@ class Login extends Component {
     }
     if (event.target.name === "password") {
       this.setState({ password: event.target.value });
+    }
+  };
+
+  renderRedirect = () => {
+    if (this.state.valid) {
+      console.log(this.state.valid + "hello");
+      this.props.history.push("/DetailsPage");
     }
   };
 
@@ -51,6 +60,7 @@ class Login extends Component {
               console.log("successfull login");
               this.setState({ valid: true });
               console.log(this.state.valid);
+              this.props.history.push("/search");
             }
           }
         });
@@ -81,7 +91,6 @@ class Login extends Component {
         <span id="info" />
         <br />
         <button onClick={this.checkLoginDetals}>login</button>
-        {this.state.valid ? <h1>Hello valid authonticate</h1> : null}
       </div>
     );
   }
