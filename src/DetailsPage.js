@@ -8,7 +8,8 @@ class DetailsPage extends Component {
       sword: "",
       smallerpopulation: 0,
       planets: [],
-      Display: []
+      filterPlanet:[],
+      isLoded:false
     };
   }
 
@@ -22,26 +23,27 @@ class DetailsPage extends Component {
           let planet = res.data;
           var planetCopy = [...this.state.planets];
           planetCopy = planetCopy.concat(planet.results);
-          this.setState({ planets: planetCopy });
+          this.setState({ planets: planetCopy,isLoded:true});
+
         });
       }
     });
   }
-
+ 
   inputValue = event => {
     this.setState({ sword: event.target.value });
   };
   searchPlanet = async event => {
+    if(event.target.value.length>0){
     var planet = await this.state.planets.filter(items => {
-      return new RegExp("^" + event.target.value).test(items.name);
+      return new RegExp("^" + event.target.value.toUpperCase()).test(items.name.toUpperCase());
     });
     console.log(planet);
-
-    this.setState({
-      Display: planet.map((items, key) => {
-        <Display name={items.name} key={key} population={items.population} />;
-      })
-    });
+    this.setState({filterPlanet:planet});
+   }else{
+    this.setState({filterPlanet:[]});
+   }
+    
     /* var x=[];
     for (var i = 0; i < planet.length; i++) {
       var regex = new RegExp("^" + event.target.value);
@@ -56,8 +58,12 @@ class DetailsPage extends Component {
   };
 
   render() {
+   
     return (
-      <div>
+      <React.Fragment>
+        {this.state.isLoded ?  
+        <React.Fragment>
+         
         <h1>Welcome to the Search Page</h1>
         <input
           placeholder="Enter Planet Name"
@@ -65,8 +71,21 @@ class DetailsPage extends Component {
           onChange={this.inputValue}
           onKeyUp={this.searchPlanet}
         />
-        {this.state.Display}
-      </div>
+        
+        
+        { this.state.filterPlanet.length >0?
+          this.state.filterPlanet.map((items, key) => (
+        <Display name={items.name}
+         key={key}
+          population={items.population} />
+        ))
+      :null
+           }
+        
+      </React.Fragment>
+       : null}
+      </React.Fragment> 
+     
     );
   }
 }

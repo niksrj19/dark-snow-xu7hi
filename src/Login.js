@@ -24,7 +24,7 @@ class Login extends Component {
 
   renderRedirect = () => {
     if (this.state.valid) {
-      console.log(this.state.valid + "hello");
+      this.setState({ valid: true });
       this.props.history.push("/DetailsPage");
     }
   };
