@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Login from "./Login";
 import "./styles.css";
+import ls from "local-storage";
 import DetailsPage from "./DetailsPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 

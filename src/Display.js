@@ -1,81 +1,38 @@
 import React, { Component } from "react";
+require("../files/stylesheet.css");
 
 class Display extends Component {
+  getFont(population) {
+    console.log("population", population);
+    let fontClass = "";
+    fontClass =
+      population < 5000
+        ? "font10"
+        : population < 50000 && population >= 5000
+        ? "font12"
+        : population < 2000000 && population >= 50000
+        ? "font14"
+        : population >= 2000000 && population < 20000000
+        ? "font16"
+        : population === "unknown"
+        ? "font6"
+        : "font18";
+    console.log("font size", fontClass);
+    return fontClass;
+  }
+
   render() {
-    const mystyle = {
-      color: "red",
-      backgroundColor: "DodgerBlue",
-      padding: "10px",
-
-      fontFamily: "Arial",
-      fontSize: "20px",
-
-      margin: "10px"
-    };
-    const mystyle1 = {
-      color: "red",
-      backgroundColor: "DodgerBlue",
-      padding: "10px",
-
-      fontFamily: "Arial",
-      fontSize: "16px",
-
-      margin: "10px"
-    };
-    const mystyle2 = {
-      color: "red",
-      backgroundColor: "DodgerBlue",
-      padding: "10px",
-
-      fontFamily: "Arial",
-      fontSize: "12px",
-
-      margin: "10px"
-    };
-    const mystyle3 = {
-      color: "red",
-      backgroundColor: "DodgerBlue",
-      padding: "10px",
-
-      fontFamily: "Arial",
-      fontSize: "10px",
-
-      margin: "10px"
-    };
-    const mystyle4 = {
-      color: "red",
-      backgroundColor: "DodgerBlue",
-      padding: "8px",
-
-      fontFamily: "Arial",
-      fontSize: "10px",
-
-      margin: "10px"
-    };
-    let m = "";
-
     return (
-      <div>
-        {
-          (m =
-            this.props.population < 5000
-              ? mystyle4
-              : this.props.population < 50000 && this.props.population >= 5000
-              ? mystyle3
-              : this.props.population < 2000000 &&
-                this.props.population >= 50000
-              ? mystyle2
-              : this.props.population >= 2000000 &&
-                this.props.population < 20000000
-              ? mystyle1
-              : mystyle)
-        }
-
-        <div style={m}>
-          <h3>Name : {this.props.name}</h3>
-          <h4>population :{this.props.population}</h4>
+      <>
+        <div className="content">
+          <p className={this.getFont(this.props.population)}>
+            Name : {this.props.name}
+          </p>
+          <p className={this.getFont(this.props.population)}>
+            population :{this.props.population}
+          </p>
         </div>
-      </div>
+      </>
     );
   }
 }

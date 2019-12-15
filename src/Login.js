@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import DetailsPage from "./DetailsPage";
-import { Redirect } from "react-router-dom";
+
+import localStorage from "local-storage";
+require("../files/stylesheet.css");
 
 class Login extends Component {
   constructor(props) {
@@ -25,7 +27,12 @@ class Login extends Component {
   renderRedirect = () => {
     if (this.state.valid) {
       this.setState({ valid: true });
+      localStorage.set("vald", true);
+      console.log("valid=", localStorage.get("vald"));
+
       this.props.history.push("/DetailsPage");
+    } else {
+      localStorage.set("vald", false);
     }
   };
 
@@ -70,9 +77,11 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <label>UserName</label>
+      <div className="loginClass">
+        <center class="loginHeadline">Star War Login</center>
+
         <input
+          className="logininputClass"
           type="text"
           onChange={this.onInputValueChanges}
           placeholder="Enter the username"
@@ -80,8 +89,9 @@ class Login extends Component {
           value={this.state.name}
         />
         <br />
-        <label>Password</label>
+
         <input
+          className="logininputClass"
           type="password"
           onChange={this.onInputValueChanges}
           placeholder="Enter the Password"
@@ -90,7 +100,9 @@ class Login extends Component {
         />
         <span id="info" />
         <br />
-        <button onClick={this.checkLoginDetals}>login</button>
+        <button class="LoginButton" onClick={this.checkLoginDetals}>
+          login
+        </button>
       </div>
     );
   }
