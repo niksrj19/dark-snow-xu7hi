@@ -80,6 +80,11 @@
 }
 .logoutButton {
   position: absolute;
+  background-color: red; /* Green */
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
 }
 .gridview-home-search {
   background-color: #4caf50; /* Green */
