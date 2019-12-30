@@ -26,6 +26,7 @@ class SearchAllPlanet extends Component {
           let planet = res.data;
           var planetCopy = [...this.state.planets];
           planetCopy = planetCopy.concat(planet.results);
+          planetCopy.sort((a, b) => (a.name > b.name ? 1 : -1));
           this.setState({ planets: planetCopy, isLoded: true });
         });
       }
