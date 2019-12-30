@@ -51,7 +51,7 @@ class DetailsPage extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div>
         {this.state.isLoded ? (
           <React.Fragment>
             <h1 className="loginHeadline"> Search Planet</h1>
@@ -81,7 +81,7 @@ class DetailsPage extends Component {
               : null}
           </React.Fragment>
         ) : null}
-      </React.Fragment>
+      </div>
     );
   }
 }

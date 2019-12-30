@@ -2,13 +2,15 @@ import React, { Component } from "react";
 import axios from "axios";
 require("../files/stylesheet.css");
 
-class Login extends Component {
+class Login2 extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
       password: "",
-      valid: true
+      valid: true,
+      persons: [],
+      isLoaded: false
     };
   }
 
@@ -28,37 +30,41 @@ class Login extends Component {
   };
 
   checkLoginDetals = () => {
-    axios.get("https://swapi.co/api/people/").then(res => {
-      let persons = res.data;
-      //  let personsArr = [...persons];
-      //personsArr =[...personsArr];
+    let personsData = [...this.state.persons];
+    for (var j = 0; j < personsData.length; j++) {
+      if (
+        personsData[j].name === this.state.name &&
+        personsData[j].birth_year === this.state.password
+      ) {
+        console.log("successfull login");
+        this.setState({ valid: true });
+        // return <Redirect to="/search" />;
+        this.props.history.push("/search");
+      } else {
+        this.setState({ valid: false });
+      }
+    }
+  };
 
-      var b = persons.count / 10;
-      b = Math.floor(b);
-      for (var i = 1; i <= b + 1; i++) {
+  componentDidMount() {
+    axios.get("https://swapi.co/api/people/").then(res => {
+      var personsdetails = res.data;
+      var personsCount = personsdetails.count;
+      var loopCount = Math.floor(personsCount / personsdetails.results.length);
+      for (var i = 1; i <= loopCount + 1; i++) {
         axios.get(`https://swapi.co/api/people/?page=${i}`).then(res => {
-          let persons = res.data;
-          for (var j = 0; j < persons.results.length; j++) {
-            if (
-              persons.results[j].name === this.state.name &&
-              persons.results[j].birth_year === this.state.password
-            ) {
-              console.log("successfull login");
-              this.setState({ valid: true });
-              // return <Redirect to="/search" />;
-              this.props.history.push("/search");
-            } else {
-              this.setState({ valid: false });
-            }
-          }
+          let person = res.data;
+          var personCopy = [...this.state.persons];
+          personCopy = personCopy.concat(person.results);
+          this.setState({ persons: personCopy, isLoaded: true });
         });
       }
     });
-  };
+  }
 
   shouldComponentUpdate(nextProps, nextState) {
     console.log(nextState, this.state);
-    if (nextState != this.state) {
+    if (nextState !== this.state) {
       return true;
     } else {
       return false;
@@ -66,6 +72,9 @@ class Login extends Component {
   }
 
   render() {
+    if (!this.state.isLoaded) {
+      return <h1>Loading.....</h1>;
+    }
     return (
       <div className="loginClass">
         <center className="loginHeadline">Star War Login</center>
@@ -101,4 +110,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Login2;
