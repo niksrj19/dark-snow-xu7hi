@@ -39,7 +39,12 @@ class Login2 extends Component {
         console.log("successfull login");
         this.setState({ valid: true });
         // return <Redirect to="/search" />;
-        this.props.history.push("/search");
+        //this.props.history.push("/search");
+
+        this.props.history.push({
+          pathname: "/search",
+          state: { detail: personsData[j] }
+        });
       } else {
         this.setState({ valid: false });
       }
@@ -63,7 +68,6 @@ class Login2 extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log(nextState, this.state);
     if (nextState !== this.state) {
       return true;
     } else {
@@ -101,7 +105,7 @@ class Login2 extends Component {
           {this.state.valid ? "" : "wrong username or password"}
         </span>
         <br />
-        {console.log("valid=", this.state.valid)}
+
         <button className="LoginButton" onClick={this.checkLoginDetals}>
           login
         </button>

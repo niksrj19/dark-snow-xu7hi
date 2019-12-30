@@ -81,3 +81,14 @@
 .logoutButton {
   position: absolute;
 }
+.gridview-home-search {
+  background-color: #4caf50; /* Green */
+  margin-left: 1%;
+  border: none;
+  color: white;
+  padding: 11px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Display from "./Display";
-import Logout from "./Logout";
 require("../files/stylesheet.css");
 class SearchAllPlanet extends Component {
   constructor(props) {
@@ -12,7 +11,8 @@ class SearchAllPlanet extends Component {
       planets: [],
       filterPlanet: [],
       isLoded: false,
-      shouldLoad: false
+      shouldLoad: false,
+      showGrid: false
     };
   }
 
@@ -43,10 +43,13 @@ class SearchAllPlanet extends Component {
         );
       });
 
-      this.setState({ filterPlanet: planet });
+      this.setState({ filterPlanet: planet, showGrid: false });
     } else {
       this.setState({ filterPlanet: [] });
     }
+  };
+  showHomePlanet = () => {
+    this.setState({ showGrid: !this.state.showGrid });
   };
 
   render() {
@@ -62,6 +65,13 @@ class SearchAllPlanet extends Component {
               onChange={this.inputValue}
               onKeyUp={this.searchPlanet}
             />
+            <button
+              className="gridview-home-search"
+              onClick={this.showHomePlanet}
+            >
+              Complete List
+            </button>
+            <br />
 
             {this.state.filterPlanet.length > 0
               ? this.state.filterPlanet.map((items, key) => (
@@ -73,6 +83,23 @@ class SearchAllPlanet extends Component {
                   />
                 ))
               : null}
+
+            {this.state.showGrid ? (
+              <div>
+                <h4>Complete Planet List </h4>
+                {this.state.planets.map((items, key) => (
+                  <div key={key}>
+                    <Display
+                      name={items.name}
+                      population={items.population}
+                      planet={items}
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         ) : null}
       </div>

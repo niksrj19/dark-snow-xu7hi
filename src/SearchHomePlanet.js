@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Display from "./Display";
-import Logout from "./Logout";
 require("../files/stylesheet.css");
 class SearchHomePlanet extends Component {
   constructor(props) {
@@ -12,23 +11,17 @@ class SearchHomePlanet extends Component {
       planets: [],
       filterPlanet: [],
       isLoded: false,
-      shouldLoad: false
+      shouldLoad: false,
+      showGrid: false
     };
   }
 
   componentDidMount() {
-    axios.get("https://swapi.co/api/planets/").then(res => {
-      var planetdetails = res.data;
-      var planetCount = planetdetails.count;
-      var loopCount = Math.floor(planetCount / planetdetails.results.length);
-      for (var i = 1; i <= loopCount + 1; i++) {
-        axios.get(`https://swapi.co/api/planets/?page=${i}`).then(res => {
-          let planet = res.data;
-          var planetCopy = [...this.state.planets];
-          planetCopy = planetCopy.concat(planet.results);
-          this.setState({ planets: planetCopy, isLoded: true });
-        });
-      }
+    axios.get(this.props.person.homeworld).then(res => {
+      let planet = res.data;
+      var planetCopy = [...this.state.planets];
+      planetCopy = planetCopy.concat(planet);
+      this.setState({ planets: planetCopy, isLoded: true });
     });
   }
 
@@ -42,11 +35,14 @@ class SearchHomePlanet extends Component {
           items.name.toUpperCase()
         );
       });
-
-      this.setState({ filterPlanet: planet });
+      this.setState({ filterPlanet: planet, showGrid: false });
     } else {
       this.setState({ filterPlanet: [] });
     }
+  };
+
+  showHomePlanet = () => {
+    this.setState({ showGrid: !this.state.showGrid });
   };
 
   render() {
@@ -62,6 +58,13 @@ class SearchHomePlanet extends Component {
               onChange={this.inputValue}
               onKeyUp={this.searchPlanet}
             />
+            <button
+              className="gridview-home-search"
+              onClick={this.showHomePlanet}
+            >
+              Complete List
+            </button>
+            <br />
 
             {this.state.filterPlanet.length > 0
               ? this.state.filterPlanet.map((items, key) => (
@@ -73,6 +76,23 @@ class SearchHomePlanet extends Component {
                   />
                 ))
               : null}
+
+            {this.state.showGrid ? (
+              <div>
+                <h4>Complete Home Planet List </h4>
+                {this.state.planets.map((items, key) => (
+                  <div key={key}>
+                    <Display
+                      name={items.name}
+                      population={items.population}
+                      planet={items}
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         ) : null}
       </div>
