@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import DetailsPage from "./DetailsPage";
-
-import localStorage from "local-storage";
 require("../files/stylesheet.css");
 
 class Login extends Component {
@@ -27,8 +24,7 @@ class Login extends Component {
   renderRedirect = () => {
     if (this.state.valid) {
       this.setState({ valid: true });
-      localStorage.set("vald", true);
-      console.log("valid=", localStorage.get("vald"));
+      localStorage.setItem("Token", "asddsfsd");
 
       this.props.history.push("/DetailsPage");
     } else {
@@ -43,16 +39,8 @@ class Login extends Component {
       let persons = res.data;
       //  let personsArr = [...persons];
       //personsArr =[...personsArr];
-      console.log(res.data);
-      console.log(
-        "persons count=" +
-          persons.count +
-          "persons.next=" +
-          persons.next +
-          " results size=" +
-          persons.results.length
-      );
-      var b = 87 / 10;
+
+      var b = persons.count / 10;
       b = Math.floor(b);
       console.log(b);
 
@@ -66,7 +54,7 @@ class Login extends Component {
             ) {
               console.log("successfull login");
               this.setState({ valid: true });
-              console.log(this.state.valid);
+              // return <Redirect to="/search" />;
               this.props.history.push("/search");
             }
           }
@@ -78,7 +66,7 @@ class Login extends Component {
   render() {
     return (
       <div className="loginClass">
-        <center class="loginHeadline">Star War Login</center>
+        <center className="loginHeadline">Star War Login</center>
 
         <input
           className="logininputClass"
@@ -100,7 +88,7 @@ class Login extends Component {
         />
         <span id="info" />
         <br />
-        <button class="LoginButton" onClick={this.checkLoginDetals}>
+        <button className="LoginButton" onClick={this.checkLoginDetals}>
           login
         </button>
       </div>

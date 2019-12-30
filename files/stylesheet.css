@@ -5,6 +5,10 @@
   font-family: Arial;
   margin: 10px;
 }
+.loginClass {
+  border: 1px solid black;
+  background: lightblue;
+}
 
 .font10 {
   font-size: 10px;
@@ -27,6 +31,5 @@
 }
 
 .font6 {
-  color: red;
   font-size: 8px;
 }

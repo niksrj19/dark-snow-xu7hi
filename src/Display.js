@@ -3,7 +3,6 @@ require("../files/stylesheet.css");
 
 class Display extends Component {
   getFont(population) {
-    console.log("population", population);
     let fontClass = "";
     fontClass =
       population < 5000
@@ -17,7 +16,7 @@ class Display extends Component {
         : population === "unknown"
         ? "font6"
         : "font18";
-    console.log("font size", fontClass);
+
     return fontClass;
   }
 

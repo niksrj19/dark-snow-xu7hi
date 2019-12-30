@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Login from "./Login";
+import Logout from "./Logout";
 import "./styles.css";
-import ls from "local-storage";
 import DetailsPage from "./DetailsPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -13,6 +13,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Login} />
           <Route path="/search" exact component={DetailsPage} />
+          <Route path="/logout" exact component={Logout} />
         </Switch>
       </Router>
     </div>
