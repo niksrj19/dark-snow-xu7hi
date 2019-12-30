@@ -76,6 +76,7 @@ class DetailsPage extends Component {
                     name={items.name}
                     key={key}
                     population={items.population}
+                    planet={items}
                   />
                 ))
               : null}

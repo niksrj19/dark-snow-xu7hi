@@ -58,7 +58,7 @@ class Login extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     console.log(nextState, this.state);
-    if (nextState != this.state) {
+    if (nextState !== this.state) {
       return true;
     } else {
       return false;

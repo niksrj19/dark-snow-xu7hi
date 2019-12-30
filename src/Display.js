@@ -24,11 +24,14 @@ class Display extends Component {
     return (
       <>
         <div className="content">
-          <p className={this.getFont(this.props.population)}>
-            Name : {this.props.name}
+          <p className={this.getFont(this.props.planet.population)}>
+            Name : {this.props.planet.name}
+          </p>
+          <p className={this.getFont(this.props.planet.population)}>
+            population :{this.props.planet.population}
           </p>
           <p className={this.getFont(this.props.population)}>
-            population :{this.props.population}
+            diameter:{this.props.planet.diameter}
           </p>
         </div>
       </>
