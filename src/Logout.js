@@ -8,6 +8,7 @@ class Logout extends Component {
   render() {
     return (
       <button
+        className="gridview-home-search"
         onClick={props => {
           this.props.history.push("/");
         }}
