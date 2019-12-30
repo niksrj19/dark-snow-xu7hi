@@ -3,7 +3,7 @@ import axios from "axios";
 import Display from "./Display";
 import Logout from "./Logout";
 require("../files/stylesheet.css");
-class DetailsPage extends Component {
+class SearchAllPlanet extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -53,8 +53,8 @@ class DetailsPage extends Component {
     return (
       <div>
         {this.state.isLoded ? (
-          <React.Fragment>
-            <h1 className="loginHeadline"> Search Planet</h1>
+          <div className="SearchAllClass">
+            <h1 className="loginHeadline"> Search All Planets</h1>
             <input
               className="logininputClass"
               placeholder="Enter Planet Name"
@@ -62,13 +62,6 @@ class DetailsPage extends Component {
               onChange={this.inputValue}
               onKeyUp={this.searchPlanet}
             />
-            <button
-              onClick={props => {
-                this.props.history.push("/logout");
-              }}
-            >
-              LOGOUT
-            </button>
 
             {this.state.filterPlanet.length > 0
               ? this.state.filterPlanet.map((items, key) => (
@@ -80,10 +73,10 @@ class DetailsPage extends Component {
                   />
                 ))
               : null}
-          </React.Fragment>
+          </div>
         ) : null}
       </div>
     );
   }
 }
-export default DetailsPage;
+export default SearchAllPlanet;

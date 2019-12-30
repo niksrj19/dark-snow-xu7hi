@@ -70,3 +70,14 @@
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
+.SearchAllClass {
+  width: 50%;
+  float: left;
+}
+.SearchHomePlanet {
+  width: 50%;
+  float: right;
+}
+.logoutButton {
+  position: absolute;
+}
