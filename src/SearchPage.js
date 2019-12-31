@@ -22,8 +22,7 @@ class SearchPage extends Component {
 
     return (
       <div>
-        <SearchAllPlanet />
-        <SearchHomePlanet person={this.props.location.state.detail} />
+        <spam>Hi {this.props.location.state.detail.name} </spam>
         <button
           className="logoutButton"
           onClick={props => {
@@ -32,6 +31,9 @@ class SearchPage extends Component {
         >
           LOGOUT
         </button>
+
+        <SearchAllPlanet />
+        <SearchHomePlanet person={this.props.location.state.detail} />
       </div>
     );
   }

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import loading from "../files/source.gif";
 
 require("../files/stylesheet.css");
 
@@ -70,7 +71,7 @@ class Login2 extends Component {
 
   render() {
     if (!this.state.isLoaded) {
-      return <h1>Loading.....</h1>;
+      return <img src={loading} alt="Logo" />;
     }
     return (
       <div className="loginClass">
