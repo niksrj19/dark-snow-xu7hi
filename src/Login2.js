@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+
 require("../files/stylesheet.css");
 
 class Login2 extends Component {
@@ -10,23 +11,14 @@ class Login2 extends Component {
       password: "",
       valid: true,
       persons: [],
-      isLoaded: false
+      isLoaded: false,
+      isLoggedIn: false
     };
+    localStorage.removeItem("Token");
   }
 
   onInputValueChanges = event => {
     this.setState({ [event.target.name]: event.target.value, valid: true });
-  };
-
-  renderRedirect = () => {
-    if (this.state.valid) {
-      this.setState({ valid: true });
-      localStorage.setItem("Token", "asddsfsd");
-
-      this.props.history.push("/DetailsPage");
-    } else {
-      localStorage.set("vald", false);
-    }
   };
 
   checkLoginDetals = () => {
@@ -37,6 +29,7 @@ class Login2 extends Component {
         personsData[j].birth_year === this.state.password
       ) {
         console.log("successfull login");
+        localStorage.setItem("Token", "true");
         this.setState({ valid: true });
         // return <Redirect to="/search" />;
         //this.props.history.push("/search");

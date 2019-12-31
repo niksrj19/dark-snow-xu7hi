@@ -17,13 +17,19 @@ class SearchHomePlanet extends Component {
   }
 
   componentDidMount() {
-    axios.get(this.props.person.homeworld).then(res => {
-      let planet = res.data;
-      var planetCopy = [...this.state.planets];
-      planetCopy = planetCopy.concat(planet);
-      planetCopy.sort((a, b) => (a.name > b.name ? 1 : -1));
-      this.setState({ planets: planetCopy, isLoded: true });
-    });
+    console.log("Inside serch hoe", this.props.person.homeworld);
+    axios
+      .get(this.props.person.homeworld)
+      .then(res => {
+        let planet = res.data;
+        var planetCopy = [...this.state.planets];
+        planetCopy = planetCopy.concat(planet);
+        planetCopy.sort((a, b) => (a.name > b.name ? 1 : -1));
+        this.setState({ planets: planetCopy, isLoded: true });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   inputValue = event => {

@@ -22,13 +22,18 @@ class SearchAllPlanet extends Component {
       var planetCount = planetdetails.count;
       var loopCount = Math.floor(planetCount / planetdetails.results.length);
       for (var i = 1; i <= loopCount + 1; i++) {
-        axios.get(`https://swapi.co/api/planets/?page=${i}`).then(res => {
-          let planet = res.data;
-          var planetCopy = [...this.state.planets];
-          planetCopy = planetCopy.concat(planet.results);
-          planetCopy.sort((a, b) => (a.name > b.name ? 1 : -1));
-          this.setState({ planets: planetCopy, isLoded: true });
-        });
+        axios
+          .get(`https://swapi.co/api/planets/?page=${i}`)
+          .then(res => {
+            let planet = res.data;
+            var planetCopy = [...this.state.planets];
+            planetCopy = planetCopy.concat(planet.results);
+            planetCopy.sort((a, b) => (a.name > b.name ? 1 : -1));
+            this.setState({ planets: planetCopy, isLoded: true });
+          })
+          .catch(error => {
+            console.log(error);
+          });
       }
     });
   }
